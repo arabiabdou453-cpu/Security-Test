@@ -21,28 +21,20 @@ permissions:
 jobs:
   analyze:
 
-    name: Analyze JavaScript
+    name: Analyze CodeQL
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [javascript-typescript]
 
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@v4
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3.28.10
+        uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
-
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3.28.10
+          languages: actions
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3.28.10
+        uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:${{matrix.language}}"
+          category: "/language:actions"
