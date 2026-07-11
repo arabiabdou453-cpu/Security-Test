@@ -9,15 +9,20 @@ on:
     branches:
       - main
 
+
 permissions:
   contents: read
   pull-requests: read
   security-events: write
 
+
 jobs:
   security:
+
     name: Security Scan
+
     runs-on: ubuntu-latest
+
 
     steps:
 
@@ -27,19 +32,23 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+
       - name: Fetch pull request history
         if: github.event_name == 'pull_request'
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
           git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
 
+
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+
       - name: Run Semgrep
         uses: semgrep/semgrep-action@v1
+
 
       - name: Run Trivy filesystem scan
         uses: aquasecurity/trivy-action@master
