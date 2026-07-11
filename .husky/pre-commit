@@ -1,41 +1,42 @@
 #!/usr/bin/env sh
 
-echo "🔒 Running security checks..."
+echo "🔒 Running local security checks..."
 
-echo "1/4 Checking secrets with Gitleaks..."
+echo ""
+echo "1/2 Checking secrets with Gitleaks..."
+
+if ! command -v gitleaks >/dev/null 2>&1
+then
+  echo "❌ Gitleaks is not installed."
+  echo "Install it before committing."
+  exit 1
+fi
+
 gitleaks detect --source . --no-banner
 
 if [ $? -ne 0 ]; then
-  echo "❌ Gitleaks failed. Commit blocked."
+  echo "❌ Gitleaks detected secrets. Commit blocked."
   exit 1
 fi
 
 
-echo "2/4 Checking secrets with TruffleHog..."
-trufflehog filesystem .
+echo ""
+echo "2/2 Checking code security with Semgrep..."
 
-if [ $? -ne 0 ]; then
-  echo "❌ TruffleHog failed. Commit blocked."
+if ! command -v semgrep >/dev/null 2>&1
+then
+  echo "❌ Semgrep is not installed."
+  echo "Install it before committing."
   exit 1
 fi
 
-
-echo "3/4 Checking code security with Semgrep..."
 semgrep --config auto .
 
 if [ $? -ne 0 ]; then
-  echo "❌ Semgrep failed. Commit blocked."
+  echo "❌ Semgrep detected security issues. Commit blocked."
   exit 1
 fi
 
 
-echo "4/4 Checking dependencies vulnerabilities with Trivy..."
-trivy fs --scanners vuln .
-
-if [ $? -ne 0 ]; then
-  echo "❌ Trivy failed. Commit blocked."
-  exit 1
-fi
-
-
-echo "✅ Security checks passed."
+echo ""
+echo "✅ Local security checks passed."
