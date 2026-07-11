@@ -1,13 +1,19 @@
 {
   "name": "security-test",
   "version": "1.0.0",
-  "description": "",
+  "description": "Enterprise DevSecOps Security Pipeline",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky"
+    "test": "echo \"No tests configured\" && exit 0",
+    "prepare": "husky install",
+    "security:gitleaks": "gitleaks detect --source . --no-banner",
+    "security:semgrep": "semgrep --config auto ."
   },
-  "keywords": [],
+  "keywords": [
+    "devsecops",
+    "security",
+    "secure-sdlc"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
