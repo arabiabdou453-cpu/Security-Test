@@ -1,0 +1,17 @@
+# CODEOWNERS
+# Enterprise DevSecOps ownership rules
+
+# Default repository owner
+* @arabiabdou453-cpu
+
+# GitHub Actions security workflows
+.github/workflows/* @arabiabdou453-cpu
+
+# Security configuration files
+.github/CODEOWNERS @arabiabdou453-cpu
+.github/SECURITY.md @arabiabdou453-cpu
+.github/dependabot.yml @arabiabdou453-cpu
+
+# Dependency management
+package.json @arabiabdou453-cpu
+package-lock.json @arabiabdou453-cpu
