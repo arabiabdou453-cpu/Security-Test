@@ -12,29 +12,35 @@ on:
   schedule:
     - cron: '30 2 * * 1'
 
+
 permissions:
   contents: read
   security-events: write
   actions: read
   pull-requests: read
 
+
 jobs:
   analyze:
 
     name: Analyze CodeQL
+
     runs-on: ubuntu-latest
+
 
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action@641a925cfafe92d0fdf8b239ba4053e3f8d99d6d
         with:
           languages: actions
 
+
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action@641a925cfafe92d0fdf8b239ba4053e3f8d99d6d
         with:
           category: "/language:actions"
