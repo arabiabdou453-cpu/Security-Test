@@ -35,9 +35,12 @@ jobs:
 
       - name: Fetch pull request history
         if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
-          git fetch origin ${{ github.event.pull_request.head.ref }}:${{ github.event.pull_request.head.ref }}
+          git fetch origin "$BASE_REF:$BASE_REF"
+          git fetch origin "$HEAD_REF:$HEAD_REF"
 
 
       - name: Run Gitleaks
@@ -51,7 +54,7 @@ jobs:
 
 
       - name: Run Trivy filesystem scan
-        uses: aquasecurity/trivy-action@0ad5c880e7c4e6f6a1b5c3f7d4f7b8d7f9f8e6f5
+        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2
         with:
           scan-type: fs
           scan-ref: .
