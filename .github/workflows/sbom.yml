@@ -25,16 +25,14 @@ jobs:
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
-
-
-      - name: Install Syft
-        uses: anchore/sbom-action/download-syft@v0.17.5
+        uses: actions/checkout@v4
 
 
       - name: Generate SBOM
-        run: |
-          syft . -o spdx-json > sbom.spdx.json
+        uses: anchore/sbom-action@v0.17.9
+        with:
+          format: spdx-json
+          output-file: sbom.spdx.json
 
 
       - name: Upload SBOM artifact
