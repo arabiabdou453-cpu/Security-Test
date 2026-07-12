@@ -8,9 +8,7 @@ on:
     branches:
       - main
 
-
 permissions: read-all
-
 
 jobs:
   scorecard:
@@ -24,7 +22,6 @@ jobs:
       id-token: write
       contents: read
 
-
     steps:
 
       - name: Checkout repository
@@ -34,7 +31,7 @@ jobs:
 
 
       - name: Run Scorecard
-        uses: ossf/scorecard-action@0864cf9c5f3c9e7e7b6f5f9f7e5c2b1a9c0d8e7f
+        uses: ossf/scorecard-action@e4c423540e964e15ccadc56558705ba15136265c
         with:
           results_file: results.sarif
           publish_results: true
