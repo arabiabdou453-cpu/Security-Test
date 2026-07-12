@@ -29,7 +29,7 @@ jobs:
 
 
       - name: Install Syft
-        uses: anchore/sbom-action/download-syft@v0.17.5
+        uses: anchore/sbom-action/download-syft@e306f9c6f3f7d0e7e7c9d4d4f8b8f3a2c5d9e1f0
 
 
       - name: Generate SBOM
@@ -38,7 +38,7 @@ jobs:
 
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
         with:
           name: sbom
           path: sbom.spdx.json
