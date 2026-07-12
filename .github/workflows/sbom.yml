@@ -9,8 +9,10 @@ on:
     branches:
       - main
 
+
 permissions:
   contents: read
+
 
 jobs:
   sbom:
@@ -19,23 +21,22 @@ jobs:
 
     runs-on: ubuntu-latest
 
+
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
-
-
-      - name: Install Syft
-        uses: anchore/sbom-action/download-syft@e306f9c6f3f7d0e7e7c9d4d4f8b8f3a2c5d9e1f0
+        uses: actions/checkout@v4
 
 
       - name: Generate SBOM
-        run: |
-          syft . -o spdx-json > sbom.spdx.json
+        uses: anchore/sbom-action@v0.17.9
+        with:
+          format: spdx-json
+          output-file: sbom.spdx.json
 
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e
+        uses: actions/upload-artifact@v4
         with:
           name: sbom
           path: sbom.spdx.json
