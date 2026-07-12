@@ -1,42 +1,17 @@
 #!/usr/bin/env sh
 
-echo "🔒 Running local security checks..."
+echo "🔒 Running local security gate..."
 
 echo ""
-echo "1/2 Checking secrets with Gitleaks..."
+echo "Running all security checks..."
 
-if ! command -v gitleaks >/dev/null 2>&1
-then
-  echo "❌ Gitleaks is not installed."
-  echo "Install it before committing."
-  exit 1
-fi
-
-gitleaks detect --source . --no-banner
+npm run security:all
 
 if [ $? -ne 0 ]; then
-  echo "❌ Gitleaks detected secrets. Commit blocked."
+  echo ""
+  echo "❌ Security checks failed. Commit blocked."
   exit 1
 fi
-
 
 echo ""
-echo "2/2 Checking code security with Semgrep..."
-
-if ! command -v semgrep >/dev/null 2>&1
-then
-  echo "❌ Semgrep is not installed."
-  echo "Install it before committing."
-  exit 1
-fi
-
-semgrep --config auto .
-
-if [ $? -ne 0 ]; then
-  echo "❌ Semgrep detected security issues. Commit blocked."
-  exit 1
-fi
-
-
-echo ""
-echo "✅ Local security checks passed."
+echo "✅ Local security gate passed."
