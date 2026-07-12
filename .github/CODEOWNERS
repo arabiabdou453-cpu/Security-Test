@@ -1,7 +1,13 @@
 # Security and CI/CD ownership
 
+# Default owner for all repository files
+* @arabiabdou453-cpu
+
+# GitHub Actions workflows
 .github/workflows/* @arabiabdou453-cpu
 
+# Security policy
 .github/SECURITY.md @arabiabdou453-cpu
 
+# Dependabot configuration
 .github/dependabot.yml @arabiabdou453-cpu
