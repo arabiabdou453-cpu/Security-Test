@@ -9,10 +9,8 @@ on:
     branches:
       - main
 
-
 permissions:
   contents: read
-
 
 jobs:
   sbom:
@@ -21,22 +19,21 @@ jobs:
 
     runs-on: ubuntu-latest
 
-
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
 
       - name: Generate SBOM
-        uses: anchore/sbom-action@v0.17.9
+        uses: anchore/sbom-action@7e043c0b9e7c7e9f6e8e5f3e4b2a1d6c9f8e7a6b
         with:
           format: spdx-json
           output-file: sbom.spdx.json
 
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808
         with:
           name: sbom
           path: sbom.spdx.json
