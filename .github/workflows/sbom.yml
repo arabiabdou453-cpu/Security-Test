@@ -9,6 +9,10 @@ on:
     branches:
       - main
 
+  release:
+    types:
+      - created
+
 
 permissions:
   contents: read
@@ -29,14 +33,14 @@ jobs:
 
 
       - name: Generate SBOM
-        uses: anchore/sbom-action@v0.17.9
+        uses: anchore/sbom-action@df80a981bc6edbc4e220a492d3cbe9f5547a6e75
         with:
           format: spdx-json
           output-file: sbom.spdx.json
 
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: sbom
           path: sbom.spdx.json
