@@ -3,8 +3,6 @@ name: OpenSSF Scorecard
 on:
   workflow_dispatch:
 
-  branch_protection_rule:
-
   schedule:
     - cron: '30 1 * * 6'
 
@@ -12,11 +10,8 @@ on:
     branches:
       - main
 
-  pull_request:
-    branches:
-      - main
-
-permissions: read-all
+permissions:
+  contents: read
 
 jobs:
   scorecard:
@@ -40,7 +35,7 @@ jobs:
 
 
       - name: Run Scorecard analysis
-        uses: ossf/scorecard-action@e4c423540e964e15ccadc56558705ba15136265c
+        uses: ossf/scorecard-action@ff5dd8929f96a8a4dc67d13f32b8c75057829621
         with:
           results_file: results.sarif
           results_format: sarif
