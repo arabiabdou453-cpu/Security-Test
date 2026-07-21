@@ -4,7 +4,9 @@
 
 If you discover a security vulnerability in this repository, please do not open a public issue.
 
-Please report security issues privately to the repository maintainers.
+Please report security issues privately through GitHub Security Advisories:
+
+https://github.com/arabiabdou453-cpu/Security-Test/security/advisories/new
 
 Include:
 
