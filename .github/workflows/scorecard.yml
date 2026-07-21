@@ -1,5 +1,6 @@
 ---
 # yamllint disable rule:line-length
+
 name: OpenSSF Scorecard
 
 on:
@@ -19,6 +20,7 @@ permissions:
 
 jobs:
   analysis:
+
     name: Scorecard analysis
 
     runs-on: ubuntu-latest
@@ -30,6 +32,7 @@ jobs:
       actions: read
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
@@ -44,6 +47,6 @@ jobs:
           publish_results: true
 
       - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@e306b6f7c8f3c7d5b5a2c1e6f8d9a0b7c6d5e4f3
+        uses: github/codeql-action/upload-sarif@b56ba49b26e50535fa1e7f7db0f4f7b4bf65d80d
         with:
           sarif_file: results.sarif
