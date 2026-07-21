@@ -15,7 +15,7 @@ on:
 
 
 permissions:
-  contents: read
+  contents: write
 
 
 jobs:
@@ -37,6 +37,8 @@ jobs:
         with:
           format: spdx-json
           output-file: sbom.spdx.json
+          upload-artifact: true
+          upload-release-assets: true
 
 
       - name: Upload SBOM artifact
