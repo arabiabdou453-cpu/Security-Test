@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 
 jobs:
@@ -24,7 +25,6 @@ jobs:
     name: Generate Software Bill of Materials
 
     runs-on: ubuntu-latest
-
 
     steps:
 
@@ -39,6 +39,8 @@ jobs:
           output-file: sbom.spdx.json
           upload-artifact: true
           upload-release-assets: true
+        env:
+          GH_TOKEN: ${{ github.token }}
 
 
       - name: Upload SBOM artifact
