@@ -37,7 +37,8 @@ jobs:
         with:
           format: spdx-json
           output-file: sbom.spdx.json
-          upload-release-asset: true
+          upload-artifact: true
+          upload-release-assets: true
         env:
           GH_TOKEN: ${{ github.token }}
 
