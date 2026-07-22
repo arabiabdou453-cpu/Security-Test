@@ -66,7 +66,10 @@ jobs:
       - name: Generate artifact
         run: |
           mkdir -p release
-          cp -r . release/
+          rsync -av \
+            --exclude=.git \
+            --exclude=release \
+            ./ release/
 
 
       - name: Upload release artifact
