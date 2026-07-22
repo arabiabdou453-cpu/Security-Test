@@ -23,11 +23,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository at a fixed SHA
+      # Checkout repository pinned to SHA
       - name: Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
-      # Generate SBOM using Anchore action pinned to a commit SHA
+      # Generate SBOM pinned to commit SHA
       - name: Generate SBOM
         uses: anchore/sbom-action@df80a981bc6edbc4e220a492d3cbe9f5547a6e75
         with:
@@ -35,17 +35,17 @@ jobs:
           output-file: sbom.spdx.json
           upload-artifact: true
 
-      # Upload SBOM as artifact for workflow
+      # Upload SBOM as workflow artifact
       - name: Upload SBOM Artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: sbom
           path: sbom.spdx.json
 
-      # Attach SBOM to GitHub Release (only on release events)
+      # Attach SBOM to release using fixed SHA for softprops/action-gh-release
       - name: Upload SBOM to Release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@8d6f9073d4f0c1a2c9632c4d490e3b2f6f4f6a9d
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
         with:
           files: sbom.spdx.json
         env:
