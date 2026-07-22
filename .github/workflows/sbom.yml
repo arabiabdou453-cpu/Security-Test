@@ -13,25 +13,21 @@ on:
     types:
       - created
 
-
 permissions:
   contents: write
-
+  actions: read
 
 jobs:
   sbom:
-
     name: Generate Software Bill of Materials
-
     runs-on: ubuntu-latest
 
-
     steps:
-
+      # Checkout repository at a fixed SHA
       - name: Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
-
+      # Generate SBOM using Anchore action pinned to a commit SHA
       - name: Generate SBOM
         uses: anchore/sbom-action@df80a981bc6edbc4e220a492d3cbe9f5547a6e75
         with:
@@ -39,10 +35,17 @@ jobs:
           output-file: sbom.spdx.json
           upload-artifact: true
 
+      # Upload SBOM as artifact for workflow
+      - name: Upload SBOM Artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: sbom
+          path: sbom.spdx.json
 
+      # Attach SBOM to GitHub Release (only on release events)
       - name: Upload SBOM to Release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@8d6f9073d4f0c1a2c9632c4d490e3b2f6f4f6a9d
         with:
           files: sbom.spdx.json
         env:
